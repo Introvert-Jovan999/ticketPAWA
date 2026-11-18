@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plans – Ticket Pawa</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#101B35;--bg2:#1D2B49;--gold:#F5BD35;--gold2:#ffd36b;--green:#2ECC8F;--amber:#F59E0B;--text:#fff;--muted:#A9B4CC;--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(22px,4vw,30px);font-weight:800}
+.sub{color:var(--muted);margin:8px 0 0;max-width:620px}
+section{padding:36px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;transition:transform .15s,background .15s;text-align:center}
+.btn:active{transform:scale(.97)}
+.gold{background:var(--gold);color:#1a1405}.gold:hover{background:var(--gold2)}
+.ghost{background:transparent;border:1.5px solid var(--line);color:var(--text)}.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(16,27,53,.96);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(16,27,53,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:800;font-size:14px;transform:rotate(-6deg)}
+.logo b{color:var(--gold)}
+nav.top{display:none;gap:4px}
+nav.top a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px}
+nav.top a:hover,nav.top a.on{color:var(--text);background:var(--bg2)}
+.acts{display:flex;gap:8px}.acts .btn{padding:9px 16px;font-size:14px}.acts .ghost{display:none}
+
+.head{padding:30px 0 10px;background:radial-gradient(800px 320px at 90% -20%,rgba(245,189,53,.13),transparent 60%)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:10px}.crumb a:hover{color:var(--gold)}
+.head h1{font-size:clamp(30px,6vw,46px);font-weight:800}
+.tabs{display:flex;background:var(--bg2);border-radius:14px;padding:5px;margin-top:22px;border:1px solid var(--line);max-width:420px}
+.tab{flex:1;background:transparent;color:var(--muted);padding:11px 12px;border-radius:10px;font-weight:700}
+.tab.on{background:var(--gold);color:#1a1405}
+.tab small{display:block;font-weight:500;font-size:11px;opacity:.8}
+
+/* plan tickets */
+.plans{display:grid;gap:18px;margin-top:22px}
+.pl{background:var(--bg2);border:1px solid var(--line);border-radius:18px;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.28)}
+.pl .main{padding:20px 20px 16px}
+.pl h3{font-size:20px}
+.rng{color:var(--muted);font-size:13px;margin-top:2px}
+.price{font-size:36px;font-weight:800;color:var(--gold);margin:14px 0 2px;letter-spacing:-.02em}
+.price small{font-size:14px;color:var(--muted);font-weight:500}
+.save{font-size:13px;color:var(--green);min-height:20px}
+.stub{border-top:2px dashed rgba(255,255,255,.2);padding:16px 20px 20px;position:relative}
+.stub::before,.stub::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.stub::before{left:-11px}.stub::after{right:-11px}
+.pl ul{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px;font-size:14px;color:var(--muted)}
+.pl li{display:flex;gap:8px}.pl li::before{content:"✓";color:var(--green);font-weight:700}
+.pl .btn{width:100%}
+.risk{font-size:12px;color:var(--muted);margin-top:10px}
+.note{font-size:13px;color:var(--muted);margin-top:16px;max-width:700px}
+
+/* compare table */
+.tw{overflow-x:auto;margin-top:18px;border:1px solid var(--line);border-radius:16px;background:var(--bg2)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{padding:14px 16px;text-align:left;border-top:1px solid var(--line)}
+thead th{border-top:0;color:var(--muted);font-weight:600;font-size:13px}
+td a{font-weight:700;color:var(--gold)}td a:hover{text-decoration:underline}
+tbody th{font-weight:700}tbody th small{display:block;font-weight:500;color:var(--muted)}
+
+/* rules and faq */
+.rules{display:grid;gap:14px;margin-top:20px}
+.rule{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:18px}
+.rule h3{font-size:16px;margin-bottom:6px}.rule p{margin:0;color:var(--muted);font-size:14px}
+details{background:var(--bg2);border:1px solid var(--line);border-radius:14px;margin-top:10px}
+summary{padding:16px 18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0;padding:0 18px 16px;color:var(--muted);font-size:14px}
+details a{color:var(--gold);text-decoration:underline}
+.cta{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.cta p{margin:6px 0 0;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:34px 0 20px;background:#0c1630;margin-top:30px}
+.fgrid{display:grid;gap:24px}
+.fgrid h4{margin:0 0 10px;font-size:14px}
+.fgrid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}.fgrid a:hover{color:var(--gold)}
+.warn{margin-top:26px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+.copy{margin-top:16px;font-size:12px;color:var(--muted)}
+
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(16,27,53,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bn a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:4px}
+.bn a.on{color:var(--gold)}
+.bn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media(min-width:700px){.plans{grid-template-columns:repeat(3,1fr)}.rules{grid-template-columns:repeat(3,1fr)}.fgrid{grid-template-columns:2fr 1fr 1fr 1fr}.cta{grid-template-columns:1fr auto;align-items:center}}
+@media(min-width:980px){body{padding-bottom:0}.bn{display:none}nav.top{display:flex}.acts .ghost{display:inline-flex}section{padding:48px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="index.html" aria-label="Ticket Pawa home"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a>
+  <nav class="top" aria-label="Main">
+   <a href="index.html">Home</a>
+   <a href="tickets.html">Tickets</a>
+   <a class="on" href="subscriptions.html">Plans</a>
+   <a href="results.html">Results</a>
+   <a href="how-it-works.html">How it works</a>
+  </nav>
+  <div class="acts">
+   <a class="btn ghost" href="login.html">Log in</a>
+   <a class="btn gold" href="login.html?mode=register">Join</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<div class="head"><div class="wrap">
+ <div class="crumb"><a href="index.html">Home</a> / Plans</div>
+ <h1>Memberships</h1>
+ <p class="sub">Choose how long you want access and which odds range you want. Your plan gives access to the slips published in that range during your period.</p>
+ <div class="tabs" id="tabs" role="tablist" aria-label="Plan length">
+  <button class="tab" data-d="daily" role="tab">Daily<small>24 hours</small></button>
+  <button class="tab" data-d="weekly" role="tab">Weekly<small>7 days</small></button>
+  <button class="tab" data-d="monthly" role="tab">Monthly<small>30 days</small></button>
+ </div>
+</div></div>
+
+<section style="padding-top:6px"><div class="wrap">
+ <div class="plans" id="plans"></div>
+ <p class="note">Sample prices and slip counts. A plan gives access to published selections only. It does not promise any win or return, and every bet is placed separately on betPawa. Adults aged 25 and over only.</p>
+</div></section>
+
+<section style="background:#0c1630"><div class="wrap">
+ <h2>Compare every plan</h2>
+ <p class="sub">All nine combinations at a glance. Tap a price to choose it.</p>
+ <div class="tw"><table>
+  <thead><tr><th>Odds range</th><th>Daily</th><th>Weekly</th><th>Monthly</th></tr></thead>
+  <tbody id="cmp"></tbody>
+ </table></div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Plan rules in plain words</h2>
+ <div class="rules">
+  <div class="rule"><h3>How many slips</h3><p>Each day’s slips are listed on the plan card above. Sample: Lower and Balanced have 3 slips a day, High has 2.</p></div>
+  <div class="rule"><h3>When slips go live</h3><p>New slips are normally published by 09:00 EAT (sample time). You will see the publish time on every ticket.</p></div>
+  <div class="rule"><h3>If no slip is published</h3><p>If we publish no slip in your range on a day, that day is added to the end of your plan. This is the sample rule.</p></div>
+ </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <h2>Questions</h2>
+ <details><summary>When does my plan start?</summary><p>Your period begins when your payment is confirmed. The start and end time appear in your account, with a countdown.</p></details>
+ <details><summary>Will a plan help me win?</summary><p>No. A plan gives access to our published selections. Results are never guaranteed, and our <a href="results.html">Results page</a> shows wins, losses and voids.</p></details>
+ <details><summary>Does my plan renew by itself?</summary><p>No. Plans are renewed by hand, so you are never charged without choosing to pay again.</p></details>
+ <details><summary>Can I get a refund?</summary><p>Refund rules are on the <a href="refund-policy.html">Refund policy</a> page. Please read them before you pay.</p></details>
+ <details><summary>Who can subscribe?</summary><p>You must be 25 or older. Read our <a href="responsible-gambling.html">responsible gambling</a> advice and never bet money you cannot afford to lose.</p></details>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <div class="cta"><div><h2 style="font-size:22px">Prefer to buy one ticket?</h2><p>Single tickets start from UGX 2,000 with no commitment.</p></div><a class="btn gold" href="tickets.html">Browse tickets</a></div>
+</div></section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="index.html" style="padding:0"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a><p style="color:var(--muted);font-size:14px;max-width:300px">Your daily source of betting selections. Ticket Pawa sells information only. Bets are placed separately with a licensed bookmaker.</p></div>
+   <div><h4>Shop</h4><a href="tickets.html">All tickets</a><a href="subscriptions.html">Plans</a><a href="results.html">Results</a></div>
+   <div><h4>Help</h4><a href="how-it-works.html">How it works</a><a href="responsible-gambling.html">Responsible gambling</a><a href="contact.html">Contact us</a></div>
+   <div><h4>Legal</h4><a href="terms.html">Terms and conditions</a><a href="privacy.html">Privacy policy</a><a href="refund-policy.html">Refund policy</a></div>
+  </div>
+  <div class="warn"><strong>Betting is addictive and can be psychologically harmful.</strong> You must be 25 or older. Never bet money you cannot afford to lose.</div>
+  <div class="copy">© 2026 Ticket Pawa. Sample design with fictional tickets, odds and prices.</div>
+ </div>
+</footer>
+
+<nav class="bn" aria-label="Mobile">
+ <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+ <a href="tickets.html"><svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Tickets</a>
+ <a class="on" href="subscriptions.html"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Plans</a>
+ <a href="account.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+</nav>
+
+<script>
+const PR={daily:{lower:2000,balanced:3000,high:5000},weekly:{lower:10000,balanced:15000,high:25000},monthly:{lower:30000,balanced:45000,high:75000}};
+const DAYS={daily:1,weekly:7,monthly:30},PER={daily:'24 hours',weekly:'7 days',monthly:'30 days'};
+const CAT={lower:'Lower odds',balanced:'Balanced odds',high:'High odds'};
+const RNG={lower:'1.30–2.00',balanced:'2.01–4.00',high:'4.01+'};
+const SL={lower:3,balanced:3,high:2};
+const NOTE={lower:'Smaller combined odds from fewer, closer calls.',balanced:'A middle range with a different risk profile.',high:'Bigger combined odds. Greater uncertainty, so most lose.'};
+const fmt=n=>n.toLocaleString('en-UG'),$=id=>document.getElementById(id);
+const q=new URLSearchParams(location.search).get('d');
+let dur=PER[q]?q:'weekly';
+
+function saving(d,c){return d==='daily'?'':`Saves ${Math.round((1-PR[d][c]/(PR.daily[c]*DAYS[d]))*100)}% compared with buying daily`}
+function render(){
+ document.querySelectorAll('.tab').forEach(t=>{const on=t.dataset.d===dur;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
+ $('plans').innerHTML=['lower','balanced','high'].map(c=>`<article class="pl"><div class="main">
+   <h3>${CAT[c]}</h3><div class="rng">Combined odds ${RNG[c]}</div>
+   <div class="price">UGX ${fmt(PR[dur][c])} <small>for ${PER[dur]}</small></div><div class="save">${saving(dur,c)}</div></div>
+   <div class="stub"><ul>
+    <li>${SL[c]} slips a day in this range</li>
+    <li>${dur==='daily'?'One day':dur==='weekly'?'Seven days':'Thirty days'} of access from payment</li>
+    <li>Booking codes appear in your account</li>
+    <li>Access ends automatically, no auto-renewal</li></ul>
+    <a class="btn gold" href="checkout.html?plan=${dur}-${c}">Choose ${CAT[c].toLowerCase()}</a>
+    <div class="risk">${NOTE[c]}</div></div></article>`).join('');
+ try{history.replaceState(null,'','?d='+dur)}catch(e){}
+}
+$('cmp').innerHTML=['lower','balanced','high'].map(c=>`<tr><th scope="row">${CAT[c]}<small>${RNG[c]}</small></th>${['daily','weekly','monthly'].map(d=>`<td><a href="checkout.html?plan=${d}-${c}">UGX ${fmt(PR[d][c])}</a></td>`).join('')}</tr>`).join('');
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;dur=b.dataset.d;render()});
+render();
+</script>
+</body>
+</html>

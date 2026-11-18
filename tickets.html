@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>All Tickets – Ticket Pawa</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#101B35;--bg2:#1D2B49;--gold:#F5BD35;--gold2:#ffd36b;--green:#2ECC8F;--amber:#F59E0B;--text:#fff;--muted:#A9B4CC;--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.gold{background:var(--gold);color:#1a1405}.gold:hover{background:var(--gold2)}
+.ghost{background:transparent;border:1.5px solid var(--line);color:var(--text)}.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(16,27,53,.96);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(16,27,53,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:800;font-size:14px;transform:rotate(-6deg)}
+.logo b{color:var(--gold)}
+nav.top{display:none;gap:4px}
+nav.top a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px}
+nav.top a:hover,nav.top a.on{color:var(--text);background:var(--bg2)}
+.acts{display:flex;gap:8px}.acts .btn{padding:9px 16px;font-size:14px}.acts .ghost{display:none}
+
+.head{padding:30px 0 6px;background:radial-gradient(800px 300px at 90% -20%,rgba(245,189,53,.12),transparent 60%)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:10px}.crumb a:hover{color:var(--gold)}
+.head h1{font-size:clamp(30px,6vw,46px);font-weight:800}
+.sub{color:var(--muted);margin:8px 0 0;max-width:600px}
+
+/* filters */
+.filters{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:22px;display:grid;gap:14px}
+.fl{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:var(--bg);color:var(--muted);padding:9px 16px;border-radius:99px;font-weight:600;font-size:14px;white-space:nowrap;border:1px solid var(--line)}
+.chip.on{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 52%,calc(100% - 13px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.resbar{display:flex;justify-content:space-between;align-items:center;margin:22px 0 4px;gap:10px;flex-wrap:wrap}
+.resbar p{margin:0;color:var(--muted);font-size:14px}.resbar strong{color:var(--text)}
+.reset{background:transparent;color:var(--gold);font-weight:600;font-size:14px;padding:6px 0}
+
+/* cards */
+.grid{display:grid;gap:18px;margin-top:14px}
+.tk{background:var(--bg2);border-radius:18px;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.28);border:1px solid var(--line)}
+.tk .main{padding:18px 18px 16px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.id{font-weight:700;font-size:14px}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(46,204,143,.15);color:var(--green)}
+.badge.soon{background:rgba(245,158,11,.15);color:var(--amber)}
+.cat{font-size:12px;color:var(--muted);margin-top:2px}
+.odds{font-size:46px;font-weight:800;color:var(--gold);line-height:1;margin:12px 0 2px;letter-spacing:-.03em}
+.lbl{font-size:12px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.meta b{display:block;font-size:15px}
+.stub{border-top:2px dashed rgba(255,255,255,.2);padding:14px 18px 18px;position:relative}
+.stub::before,.stub::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.stub::before{left:-11px}.stub::after{right:-11px}
+.code{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 12px;font-weight:600;letter-spacing:.14em;margin-bottom:12px}
+.code span{filter:blur(5px);user-select:none}
+.code small{margin-left:auto;letter-spacing:0;font-weight:500;color:var(--muted);font-size:12px}
+.buy{display:flex;gap:10px}.buy .btn{flex:1;padding:11px 12px;font-size:14px}
+.exp{color:var(--amber);font-weight:600;font-variant-numeric:tabular-nums}
+.lock{width:16px;height:16px;flex:none;fill:none;stroke:var(--gold);stroke-width:2}
+.empty{text-align:center;padding:50px 20px;background:var(--bg2);border:1px dashed var(--line);border-radius:18px;margin-top:14px}
+.empty h3{font-size:20px;margin-bottom:6px}.empty p{color:var(--muted);margin:0 0 18px}
+
+.cta{margin:46px 0 10px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.cta p{margin:6px 0 0;color:var(--muted)}
+
+input{font:inherit;color:inherit}
+.code.open span{filter:none;color:var(--gold)}
+/* buy dialog */
+.mo{position:fixed;inset:0;z-index:100;background:rgba(5,10,25,.72);display:none;align-items:flex-end;justify-content:center}
+.mo.open{display:flex}
+.sheet{background:var(--bg2);width:100%;max-width:480px;max-height:92vh;max-height:92dvh;overflow-y:auto;border-radius:22px 22px 0 0;padding:24px 20px calc(24px + env(safe-area-inset-bottom,0px));position:relative;border:1px solid var(--line);animation:up .25s ease-out;outline:0}
+@keyframes up{from{transform:translateY(40px);opacity:.6}}
+.x{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:50%;background:var(--bg);color:var(--muted);font-size:22px;line-height:1;display:grid;place-items:center}
+.lockd .x{display:none}
+.mt{font-size:21px;font-weight:800;padding-right:36px}
+.ts{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;background:var(--bg);border-radius:14px;padding:14px 16px;margin:14px 0 18px}
+.to{font-size:40px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-.03em}
+.tp{text-align:right}.tp b{display:block;font-size:22px}
+.nets{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.net{position:relative;margin:0}
+.net input{position:absolute;opacity:0;inset:0;cursor:pointer;width:100%;height:100%}
+.net div{border:1.5px solid var(--line);border-radius:14px;padding:13px 10px;background:var(--bg);text-align:center;font-weight:700;font-size:14px}
+.net small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.net input:checked+div{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,189,53,.18)}
+.net input:focus-visible+div{outline:2px solid var(--gold);outline-offset:2px}
+.dt{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+.fl2{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+.in{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px}
+.in:focus{border-color:var(--gold);outline:0}.in.bad{border-color:#ff7b7b}
+.ph{display:flex}.ph span{background:var(--bg);border:1.5px solid var(--line);border-right:0;border-radius:12px 0 0 12px;padding:13px 12px;color:var(--muted);font-weight:600}
+.ph .in{border-radius:0 12px 12px 0}
+.err{color:#ff7b7b;font-size:12px;margin-top:5px}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}
+.ck{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin:14px 0 0}
+.ck input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--gold);flex:none}
+.ck a,.lk2{color:var(--gold);text-decoration:underline}
+.sheet form .btn{margin-top:16px}.full{width:100%}
+.state{text-align:center;padding:6px 0}
+.state h2{font-size:21px;margin:0 0 8px}.state p{color:var(--muted);margin:0 auto 14px;max-width:340px;font-size:14px}
+.ic{width:60px;height:60px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;background:rgba(255,123,123,.12);color:#ff7b7b}
+.ic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round}
+.spin{width:60px;height:60px;border-radius:50%;border:4px solid rgba(245,189,53,.2);border-top-color:var(--gold);margin:0 auto 12px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pill{display:inline-block;padding:3px 12px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:10px}
+.pill.pend{background:rgba(245,158,11,.15);color:var(--amber)}.pill.ok{background:rgba(46,204,143,.15);color:var(--green)}.pill.no{background:rgba(255,123,123,.12);color:#ff7b7b}
+.timer{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;margin:2px 0 10px}
+.ref{font-weight:700;color:var(--gold);letter-spacing:.04em}
+.demo{margin-top:16px;padding:14px;border:1px dashed var(--line);border-radius:14px;text-align:left}
+.demo b{font-size:12px;color:var(--muted);display:block;margin-bottom:10px}
+.demo .row2{display:grid;gap:8px}.demo .btn{padding:10px;font-size:14px}
+.stack{display:grid;gap:10px;margin-top:8px}
+.okb{background:rgba(46,204,143,.1);border:1px solid rgba(46,204,143,.35);border-radius:14px;padding:12px 14px;margin-bottom:16px}
+.codebig{background:var(--bg);border:1.5px solid var(--gold);border-radius:12px;padding:14px;text-align:center;font-size:26px;font-weight:800;letter-spacing:.2em;color:var(--gold);margin:6px 0 12px;user-select:all}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .btn{padding:12px 8px}
+.sels{margin-top:18px}
+.sl2{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
+.sl2 b{font-size:14px}.sl2 span{font-size:12px;color:var(--muted)}.sl2 em{grid-row:1/3;grid-column:2;font-style:normal;font-size:20px;font-weight:800;color:var(--gold)}
+.nt{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.4);color:#ffd9a0;font-size:12px}
+.lk2{display:block;text-align:center;margin-top:14px;font-size:14px;font-weight:600}
+@media(min-width:700px){.mo{align-items:center}.sheet{border-radius:22px}.demo .row2{grid-template-columns:repeat(3,1fr)}}
+footer{border-top:1px solid var(--line);padding:34px 0 20px;background:#0c1630;margin-top:40px}
+.fgrid{display:grid;gap:24px}
+.fgrid h4{margin:0 0 10px;font-size:14px}
+.fgrid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}.fgrid a:hover{color:var(--gold)}
+.warn{margin-top:26px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+.copy{margin-top:16px;font-size:12px;color:var(--muted)}
+
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(16,27,53,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bn a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:4px}
+.bn a.on{color:var(--gold)}
+.bn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}.sel{grid-template-columns:repeat(3,1fr)}.fgrid{grid-template-columns:2fr 1fr 1fr 1fr}.cta{grid-template-columns:1fr auto;align-items:center}}
+@media(min-width:980px){
+ body{padding-bottom:0}.bn{display:none}
+ nav.top{display:flex}.acts .ghost{display:inline-flex}
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .filters{grid-template-columns:auto auto 1fr;align-items:end}.sel{grid-template-columns:repeat(3,1fr)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="index.html" aria-label="Ticket Pawa home"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a>
+  <nav class="top" aria-label="Main">
+   <a href="index.html">Home</a>
+   <a class="on" href="tickets.html">Tickets</a>
+   <a href="subscriptions.html">Plans</a>
+   <a href="results.html">Results</a>
+   <a href="how-it-works.html">How it works</a>
+  </nav>
+  <div class="acts">
+   <a class="btn ghost" href="login.html">Log in</a>
+   <a class="btn gold" href="login.html?mode=register">Join</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<div class="head"><div class="wrap">
+ <div class="crumb"><a href="index.html">Home</a> / All tickets</div>
+ <h1>All tickets</h1>
+ <p class="sub">Compare combined odds, number of selections and price. Booking codes unlock after your payment is confirmed. Sample data only.</p>
+
+ <div class="filters">
+  <div><span class="fl">Odds range</span><div class="chips" id="fCat"></div></div>
+  <div><span class="fl">When</span><div class="chips" id="fDay"></div></div>
+  <div class="sel">
+   <div><label class="fl" for="fPrice">Price</label><select id="fPrice"><option value="0">Any price</option><option value="2000">Up to UGX 2,000</option><option value="3000">Up to UGX 3,000</option><option value="5000">Up to UGX 5,000</option></select></div>
+   <div><label class="fl" for="fSel">Selections</label><select id="fSel"><option value="0">Any number</option><option value="1">2 to 3 matches</option><option value="2">4 to 5 matches</option><option value="3">6 or more</option></select></div>
+   <div><label class="fl" for="fSort">Sort by</label><select id="fSort"><option value="exp">Expiring soon</option><option value="pa">Price: low to high</option><option value="oa">Odds: low to high</option><option value="od">Odds: high to low</option></select></div>
+  </div>
+ </div>
+</div></div>
+
+<div class="wrap">
+ <div class="resbar"><p id="count"></p><button class="reset" id="reset">Reset filters</button></div>
+ <div id="grid" class="grid"></div>
+
+ <div class="cta">
+  <div><h2 style="font-size:22px">Want every slip in a package?</h2><p>A Daily, Weekly or Monthly plan gives access to the slips published in your chosen odds range.</p></div>
+  <a class="btn gold" href="subscriptions.html">See plans</a>
+ </div>
+</div>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="index.html" style="padding:0"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a><p style="color:var(--muted);font-size:14px;max-width:300px">Your daily source of betting selections. Ticket Pawa sells information only. Bets are placed separately with a licensed bookmaker.</p></div>
+   <div><h4>Shop</h4><a href="tickets.html">All tickets</a><a href="subscriptions.html">Plans</a><a href="results.html">Results</a></div>
+   <div><h4>Help</h4><a href="how-it-works.html">How it works</a><a href="responsible-gambling.html">Responsible gambling</a><a href="contact.html">Contact us</a></div>
+   <div><h4>Legal</h4><a href="terms.html">Terms and conditions</a><a href="privacy.html">Privacy policy</a><a href="refund-policy.html">Refund policy</a></div>
+  </div>
+  <div class="warn"><strong>Betting is addictive and can be psychologically harmful.</strong> You must be 25 or older. Never bet money you cannot afford to lose.</div>
+  <div class="copy">© 2026 Ticket Pawa. Sample design with fictional tickets, odds and prices.</div>
+ </div>
+</footer>
+
+<nav class="bn" aria-label="Mobile">
+ <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+ <a class="on" href="tickets.html"><svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Tickets</a>
+ <a href="subscriptions.html"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Plans</a>
+ <a href="account.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+</nav>
+
+<script>
+const T=[
+ {id:'TP-1001',cat:'lower',odds:1.85,sel:3,price:2000,h:5,day:'today'},
+ {id:'TP-1002',cat:'balanced',odds:3.60,sel:5,price:3000,h:7,day:'today'},
+ {id:'TP-1003',cat:'high',odds:7.40,sel:6,price:5000,h:9,day:'today'},
+ {id:'TP-1004',cat:'lower',odds:1.62,sel:2,price:2000,h:3,day:'today'},
+ {id:'TP-1005',cat:'balanced',odds:2.45,sel:4,price:3000,h:11,day:'today'},
+ {id:'TP-1006',cat:'high',odds:5.20,sel:5,price:5000,h:14,day:'today'},
+ {id:'TP-1007',cat:'lower',odds:1.95,sel:3,price:2000,h:28,day:'upcoming'},
+ {id:'TP-1008',cat:'balanced',odds:2.90,sel:4,price:3000,h:30,day:'upcoming'},
+ {id:'TP-1009',cat:'high',odds:9.80,sel:7,price:5000,h:32,day:'upcoming'},
+ {id:'TP-1010',cat:'lower',odds:1.48,sel:2,price:2000,h:2,day:'today'},
+ {id:'TP-1011',cat:'balanced',odds:3.15,sel:5,price:3000,h:34,day:'upcoming'},
+ {id:'TP-1012',cat:'high',odds:4.75,sel:4,price:5000,h:36,day:'upcoming'}
+];
+const CAT={lower:'Lower odds',balanced:'Balanced odds',high:'High odds'};
+const t0=Date.now();T.forEach(t=>t.end=t0+t.h*3600e3);
+const fmt=n=>n.toLocaleString('en-UG');
+const lockIc='<svg class="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const F={cat:'all',day:'any',soon:false};
+const $=id=>document.getElementById(id);
+
+const q=new URLSearchParams(location.search).get('cat');
+if(['lower','balanced','high'].includes(q))F.cat=q;
+
+function chips(box,items,key){
+ $(box).innerHTML=items.map(([k,l])=>`<button class="chip" data-k="${k}">${l}</button>`).join('');
+ $(box).addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  if(b.dataset.k==='soon'){F.soon=!F.soon}else{F[key]=b.dataset.k}
+  render();
+ });
+}
+chips('fCat',[['all','All tickets'],['lower','Lower odds'],['balanced','Balanced odds'],['high','High odds']],'cat');
+chips('fDay',[['any','Any day'],['today','Today'],['upcoming','Upcoming'],['soon','Expiring soon']],'day');
+
+function card(t){
+ const own=owned.includes(t.id),soon=(t.end-Date.now())<6*3600e3;
+ return `<article class="tk"><div class="main">
+  <div class="row"><span class="id">${t.id}</span><span class="badge${own?'':soon?' soon':''}">${own?'Purchased':soon?'Closing soon':'Available'}</span></div>
+  <div class="cat">${CAT[t.cat]} · ${t.day==='today'?'Today':'Upcoming'}</div>
+  <div class="odds">${t.odds.toFixed(2)}</div><div class="lbl">Combined odds</div>
+  <div class="meta"><div><span class="lbl">Selections</span><b>${t.sel} matches</b></div><div><span class="lbl">Price</span><b>UGX ${fmt(t.price)}</b></div><div><span class="lbl">Expires in</span><b class="exp" data-id="${t.id}">--:--:--</b></div></div>
+ </div><div class="stub">
+  <div class="code${own?' open':''}">${own?'':lockIc}<span>${code(t.id)}</span><small>${own?'Your booking code':'Hidden until paid'}</small></div>
+  <div class="buy"><button class="btn gold" data-buy="${t.id}">${own?'View ticket':'Buy ticket'}</button><a class="btn ghost" href="ticket.html?id=${t.id}">Details</a></div>
+ </div></article>`;
+}
+function render(){
+ const maxP=+$('fPrice').value,sr=$('fSel').value,so=$('fSort').value;
+ let L=T.filter(t=>(F.cat==='all'||t.cat===F.cat)&&(F.day==='any'||t.day===F.day)&&(!F.soon||t.end-Date.now()<6*3600e3)&&(!maxP||t.price<=maxP)&&(sr==='0'||(sr==='1'&&t.sel<=3)||(sr==='2'&&t.sel>=4&&t.sel<=5)||(sr==='3'&&t.sel>=6)));
+ L.sort({exp:(a,b)=>a.end-b.end,pa:(a,b)=>a.price-b.price||a.odds-b.odds,oa:(a,b)=>a.odds-b.odds,od:(a,b)=>b.odds-a.odds}[so]);
+ document.querySelectorAll('#fCat .chip').forEach(c=>c.classList.toggle('on',c.dataset.k===F.cat));
+ document.querySelectorAll('#fDay .chip').forEach(c=>c.classList.toggle('on',c.dataset.k==='soon'?F.soon:c.dataset.k===F.day));
+ $('count').innerHTML=`Showing <strong>${L.length}</strong> of ${T.length} tickets`;
+ $('grid').innerHTML=L.length?L.map(card).join(''):`<div class="empty" style="grid-column:1/-1"><h3>No tickets match these filters</h3><p>Try a wider price range or a different odds group.</p><button class="btn gold" onclick="resetAll()">Reset filters</button></div>`;
+ tick();
+}
+function resetAll(){F.cat='all';F.day='any';F.soon=false;$('fPrice').value='0';$('fSel').value='0';$('fSort').value='exp';render()}
+function tick(){
+ const p=n=>String(n).padStart(2,'0');
+ document.querySelectorAll('.exp').forEach(e=>{
+  const t=T.find(x=>x.id===e.dataset.id);const s=Math.max(0,Math.floor((t.end-Date.now())/1000));
+  e.textContent=`${p(Math.floor(s/3600))}:${p(Math.floor(s%3600/60))}:${p(s%60)}`;
+ });
+}
+/* ===== Buy dialog: pay with Mobile Money, then the ticket opens ===== */
+const TEAMS=[['Northgate FC','Lakeview United'],['Riverside Rovers','Hillcrest Town'],['Coastal City','Eastbay Athletic'],['Savannah SC','Rift Valley FC'],['Mara Lions','Summit Rangers'],['Harbour Town','Redwood FC'],['Delta United','Crestfield'],['Sunrise FC','Granite Athletic']];
+const MK=['Home win','Over 1.5 goals','Both teams to score','Home or draw','Away or draw','Draw no bet: Home','Under 3.5 goals'];
+const KO=['14:00','15:30','17:00','18:30','19:45','20:00','21:00'];
+const r2=x=>Math.round(x*100)/100;
+const rnd=n=>{const x=Math.sin(n*9301+49297)*233280;return x-Math.floor(x)};
+function build(t){
+ const n=t.sel,num=+t.id.slice(3),g=Math.pow(t.odds,1/n);
+ let o=[];for(let i=0;i<n;i++)o.push(Math.max(1.1,r2(g*(0.88+0.24*rnd(num*10+i)))));
+ const pre=o.slice(0,n-2).reduce((a,b)=>a*b,1);let best=null,bd=9;
+ for(let a=1.05;a<=2.6;a=r2(a+0.01)){
+  const b0=t.odds/(pre*a);
+  for(const d of[-.02,-.01,0,.01,.02]){const b=r2(r2(b0)+d);
+   if(b>=1.05&&Math.round(pre*a*b*100)===Math.round(t.odds*100)){const dist=Math.abs(a-g)+Math.abs(b-g);if(dist<bd){bd=dist;best=[a,b]}}}
+ }
+ if(best){o[n-2]=best[0];o[n-1]=best[1]}
+ return o.map((od,i)=>{const k=Math.floor(rnd(num+i*7)*TEAMS.length);return{teams:TEAMS[(k+i)%TEAMS.length],mk:MK[Math.floor(rnd(num*3+i)*MK.length)],ko:KO[Math.floor(rnd(num*5+i)*KO.length)],od}});
+}
+const code=id=>'BP'+((+id.slice(3)*7919+104729)%1679616).toString(36).toUpperCase().padStart(4,'0')+'K'+id.slice(-1);
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const normPhone=v=>{const m=v.replace(/[\s-]/g,'').match(/^(?:\+?256|0)?(7\d{8})$/);return m?'+256'+m[1]:null};
+const netOf=p=>/^\+2567[678]/.test(p)?'mtn':/^\+2567[045]/.test(p)?'airtel':null;
+const pretty=p=>p.replace(/^\+256(\d{3})(\d{3})(\d{3})$/,'0$1 $2 $3');
+const NET={mtn:'MTN MoMo',airtel:'Airtel Money'};
+let owned=store.get('tp_owned',[]);
+const M={net:'mtn',phone:'',timer:null,pending:false,ref:null};
+document.body.insertAdjacentHTML('beforeend','<div class="mo" id="mo"><div class="sheet" role="dialog" aria-modal="true" id="sh" tabindex="-1"><button class="x" id="mx" aria-label="Close">×</button><div id="mb"></div></div></div>');
+
+function openM(html,label){
+ $('mb').innerHTML=html;$('sh').setAttribute('aria-label',label);$('sh').classList.toggle('lockd',M.pending);
+ $('mo').classList.add('open');document.body.style.overflow='hidden';$('sh').scrollTop=0;
+ const f=$('mb').querySelector('input:not([type=radio]),button');($('sh')).focus({preventScroll:true});if(f&&f.tagName==='BUTTON')f.focus({preventScroll:true});
+}
+function closeM(){clearInterval(M.timer);M.pending=false;$('mo').classList.remove('open');document.body.style.overflow='';render()}
+$('mx').onclick=closeM;
+$('mo').addEventListener('click',e=>{if(e.target.id==='mo'&&!M.pending)closeM()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('mo').classList.contains('open')&&!M.pending)closeM()});
+
+function openBuy(id){const t=T.find(x=>x.id===id);if(!t)return;owned.includes(id)?ticketView(t):payView(t)}
+$('grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)openBuy(b.dataset.buy)});
+
+function payView(t,err){
+ const u=store.get('tp_user',null),ph=M.phone?M.phone.replace('+256',''):(u?u.phone.replace('+256',''):'');
+ openM(`<h2 class="mt">Buy ticket ${t.id}</h2>
+ <div class="ts"><div><div class="lbl">${CAT[t.cat]} · ${t.sel} selections</div><div class="to">${t.odds.toFixed(2)}</div><div class="lbl">Combined odds</div></div><div class="tp"><div class="lbl">Total payable</div><b>UGX ${fmt(t.price)}</b><div class="lbl">No extra fees</div></div></div>
+ <form id="pf" novalidate>
+  <div class="nets" role="radiogroup" aria-label="Mobile money network">
+   <label class="net"><input type="radio" name="net" value="mtn" ${M.net==='mtn'?'checked':''}><div><span class="dt" style="background:#ffcc00"></span>MTN MoMo<small>077, 078, 076</small></div></label>
+   <label class="net"><input type="radio" name="net" value="airtel" ${M.net==='airtel'?'checked':''}><div><span class="dt" style="background:#ff4b4b"></span>Airtel Money<small>070, 075, 074</small></div></label>
+  </div>
+  <label class="fl2" for="pph">Mobile money number</label>
+  <div class="ph"><span>+256</span><input class="in" id="pph" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="7XX XXX XXX" value="${ph}"></div>
+  <div class="err" id="pE" aria-live="polite">${err||''}</div>
+  <div class="hint">You will get a prompt on this number to enter your PIN. Never share your PIN.</div>
+  <label class="ck"><input type="checkbox" id="pag"><span>I am 25 or older and accept the <a href="terms.html">Terms</a>. A ticket is information only and promises no result.</span></label>
+  <div class="err" id="gE"></div>
+  <button class="btn gold full" type="submit">Pay UGX ${fmt(t.price)}</button>
+ </form>`,'Buy ticket '+t.id);
+ const ip=$('pph');
+ document.querySelectorAll('input[name=net]').forEach(r=>r.onchange=()=>{M.net=r.value});
+ ip.oninput=()=>{const n=netOf(normPhone(ip.value)||'');if(n){M.net=n;document.querySelector('input[name=net][value='+n+']').checked=true}};ip.oninput();
+ $('pf').onsubmit=e=>{e.preventDefault();$('pE').textContent='';$('gE').textContent='';ip.classList.remove('bad');
+  const p=normPhone(ip.value);let ok=true;
+  if(!p){$('pE').textContent='Enter a valid number, for example 0772 123 456.';ok=false}
+  else if(netOf(p)&&netOf(p)!==M.net){$('pE').textContent='This looks like '+(netOf(p)==='mtn'?'an MTN':'an Airtel')+' number. Choose '+NET[netOf(p)]+' or use a different number.';ok=false}
+  if(!$('pag').checked){$('gE').textContent='Please accept to continue.';ok=false}
+  if(!ok){ip.classList.add('bad');return}
+  M.phone=p;pendingView(t);
+ };
+}
+function pendingView(t){
+ M.pending=true;M.ref='TP-'+Date.now().toString(36).toUpperCase().slice(-7);let left=60;
+ openM(`<div class="state"><div class="spin" role="img" aria-label="Waiting for approval"></div><span class="pill pend">Pending</span>
+ <h2 class="mt" style="padding:0">Check your phone</h2><p>We sent a ${NET[M.net]} prompt to <b>${pretty(M.phone)}</b>. Enter your PIN to approve UGX ${fmt(t.price)}.</p>
+ <div class="timer" id="tm">1:00</div><p style="font-size:12px">Reference <span class="ref">${M.ref}</span>. Keep this window open.</p>
+ <div class="demo"><b>Sample only: choose what happens on your phone</b><div class="row2"><button class="btn gold" id="ap">Approve</button><button class="btn ghost" id="dc">Decline</button><button class="btn ghost" id="to2">Time out</button></div></div>
+ <button class="btn ghost full" id="cn" style="margin-top:12px">Cancel</button></div>`,'Waiting for payment approval');
+ clearInterval(M.timer);
+ M.timer=setInterval(()=>{left--;const e=$('tm');if(e)e.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0');if(left<=0)finish(t,'expired')},1000);
+ $('ap').onclick=()=>finish(t,'ok');$('dc').onclick=()=>finish(t,'failed');$('to2').onclick=()=>finish(t,'expired');
+ $('cn').onclick=()=>{clearInterval(M.timer);M.pending=false;payView(t)};
+}
+function finish(t,s){
+ clearInterval(M.timer);M.pending=false;
+ if(s==='ok'){
+  if(!owned.includes(t.id)){owned.push(t.id);store.set('tp_owned',owned)}
+  const pays=store.get('tp_payments',[]);pays.push({ref:M.ref,item:'Ticket '+t.id,key:t.id,type:'ticket',amount:t.price,method:NET[M.net],phone:M.phone,status:'Successful',at:new Date().toISOString()});store.set('tp_payments',pays);
+  ticketView(t,M.ref);return;
+ }
+ const f=s==='failed';
+ openM(`<div class="state"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div><span class="pill no">${f?'Failed':'Expired'}</span><h2 class="mt" style="padding:0">${f?'Payment was declined':'The request timed out'}</h2><p>${f?'The prompt was declined or the payment could not be completed.':'We did not get your PIN in time.'} No money was taken. You can try again.</p><div class="stack"><button class="btn gold" id="ag">Try again</button><button class="btn ghost" id="cl">Close</button></div></div>`,'Payment '+(f?'failed':'expired'));
+ $('ag').onclick=()=>payView(t);$('cl').onclick=closeM;
+}
+function ticketView(t,ref){
+ const L=build(t),day=t.day==='today'?'Today':'Tomorrow';
+ openM(`${ref?`<div class="okb"><span class="pill ok">Payment received</span><div class="lbl">UGX ${fmt(t.price)} · ${NET[M.net]} · Reference <b class="ref">${ref}</b></div></div>`:''}
+ <h2 class="mt">Ticket ${t.id}</h2><div class="lbl">${CAT[t.cat]} · betPawa · Football · ${day}</div>
+ <div class="to" style="margin:10px 0 2px">${t.odds.toFixed(2)}</div><div class="lbl">Combined odds</div>
+ <div class="lbl" style="margin-top:16px">Your booking code</div>
+ <div class="codebig">${code(t.id)}</div>
+ <div class="two"><button class="btn gold" id="cp">Copy code</button><a class="btn ghost" href="https://www.betpawa.ug" target="_blank" rel="noopener">Open betPawa</a></div>
+ <div class="sels">${L.map(s=>`<div class="sl2"><b>${s.teams[0]} vs ${s.teams[1]}</b><em>${s.od.toFixed(2)}</em><span>${s.mk} · ${day}, ${s.ko} EAT</span></div>`).join('')}</div>
+ <div class="nt">Check the selections and current odds on betPawa before you bet. Odds can change. Betting is addictive and can be psychologically harmful. For adults aged 25 and over.</div>
+ <a class="lk2" href="account.html">View in my account</a>`,'Ticket '+t.id);
+ $('cp').onclick=()=>{const c=code(t.id),b=$('cp'),ok=()=>{b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy code',1600)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(c).then(ok,ok)}
+  else{const a=document.createElement('textarea');a.value=c;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();ok()}};
+}
+['fPrice','fSel','fSort'].forEach(i=>$(i).addEventListener('change',render));
+$('reset').addEventListener('click',resetAll);
+render();setInterval(tick,1000);
+</script>
+</body>
+</html>

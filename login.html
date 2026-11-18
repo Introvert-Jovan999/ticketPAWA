@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Log in or join – Ticket Pawa</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#101B35;--bg2:#1D2B49;--gold:#F5BD35;--gold2:#ffd36b;--green:#2ECC8F;--amber:#F59E0B;--red:#ff7b7b;--text:#fff;--muted:#A9B4CC;--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;transition:transform .15s,background .15s;text-align:center}
+.btn:active{transform:scale(.97)}
+.gold{background:var(--gold);color:#1a1405}.gold:hover{background:var(--gold2)}
+.ghost{background:transparent;border:1.5px solid var(--line);color:var(--text)}.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn.full{width:100%}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(16,27,53,.96);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(16,27,53,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:800;font-size:14px;transform:rotate(-6deg)}
+.logo b{color:var(--gold)}
+nav.top{display:none;gap:4px}
+nav.top a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px}
+nav.top a:hover,nav.top a.on{color:var(--text);background:var(--bg2)}
+.back{color:var(--muted);font-size:14px;font-weight:500}.back:hover{color:var(--gold)}
+
+.auth{padding:28px 0 20px;background:radial-gradient(800px 360px at 10% -10%,rgba(245,189,53,.12),transparent 60%)}
+.grid{display:grid;gap:26px;align-items:start}
+.side h1{font-size:clamp(30px,6vw,46px);font-weight:800}
+.side p{color:var(--muted);max-width:440px;margin:12px 0 0}
+.perks{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+.perks li{display:flex;gap:12px;align-items:flex-start;color:var(--muted);font-size:14px}
+.perks li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:rgba(46,204,143,.15);color:var(--green);font-weight:700;display:grid;place-items:center;font-size:13px}
+.perks b{color:var(--text);display:block;font-size:15px}
+.age{margin-top:22px;display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.age i{font-style:normal;border:1.5px solid var(--amber);color:var(--amber);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.28)}
+.tabs{display:flex;background:var(--bg);border-radius:12px;padding:4px;margin-bottom:20px}
+.tab{flex:1;background:transparent;color:var(--muted);padding:11px;border-radius:9px;font-weight:700}
+.tab.on{background:var(--gold);color:#1a1405}
+form{display:grid;gap:14px}
+label{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+.in{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px;color-scheme:dark}
+.in:focus{border-color:var(--gold);outline:0}
+.in.bad{border-color:var(--red)}
+.ph{display:flex}.ph span{background:var(--bg);border:1.5px solid var(--line);border-right:0;border-radius:12px 0 0 12px;padding:13px 12px;color:var(--muted);font-weight:600}
+.ph .in{border-radius:0 12px 12px 0}
+.pw{position:relative}.pw .in{padding-right:70px}
+.pw button{position:absolute;right:6px;top:6px;bottom:6px;background:transparent;color:var(--gold);font-size:13px;font-weight:700;padding:0 10px}
+.err{color:var(--red);font-size:12px;margin-top:5px;min-height:0}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}
+.ck{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);font-weight:400;margin:0}
+.ck input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--gold);flex:none}
+.ck a,.lk{color:var(--gold);text-decoration:underline}
+.lk{background:transparent;font-size:13px;padding:0}
+.msg{padding:12px 14px;border-radius:12px;font-size:14px;display:none}
+.msg.ok{display:block;background:rgba(46,204,143,.12);color:var(--green);border:1px solid rgba(46,204,143,.4)}
+.msg.no{display:block;background:rgba(255,123,123,.1);color:var(--red);border:1px solid rgba(255,123,123,.4)}
+.sep{text-align:center;color:var(--muted);font-size:12px;margin:2px 0}
+.signed{text-align:center;padding:10px 0}.signed h2{font-size:22px}.signed p{color:var(--muted);margin:8px 0 18px}
+.stack{display:grid;gap:10px}
+.fine{font-size:12px;color:var(--muted);margin-top:16px;text-align:center}
+
+footer{border-top:1px solid var(--line);padding:30px 0 20px;background:#0c1630;margin-top:30px}
+.fgrid{display:grid;gap:24px}
+.fgrid h4{margin:0 0 10px;font-size:14px}
+.fgrid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}.fgrid a:hover{color:var(--gold)}
+.warn{margin-top:26px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+.copy{margin-top:16px;font-size:12px;color:var(--muted)}
+
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(16,27,53,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bn a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:4px}
+.bn a.on{color:var(--gold)}
+.bn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media(min-width:700px){.fgrid{grid-template-columns:2fr 1fr 1fr 1fr}.card{padding:28px}}
+@media(min-width:980px){body{padding-bottom:0}.bn{display:none}nav.top{display:flex}.auth{padding:56px 0 40px}.grid{grid-template-columns:1fr 440px;gap:60px}}
+@media(max-width:979px){.side{order:2}.side h1{font-size:28px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="index.html" aria-label="Ticket Pawa home"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a>
+  <nav class="top" aria-label="Main">
+   <a href="index.html">Home</a>
+   <a href="tickets.html">Tickets</a>
+   <a href="subscriptions.html">Plans</a>
+   <a href="results.html">Results</a>
+   <a href="how-it-works.html">How it works</a>
+  </nav>
+  <a class="back" href="index.html">Back to home</a>
+ </div>
+</header>
+
+<main class="auth"><div class="wrap grid">
+ <div class="side">
+  <h1>Your tickets, all in one place</h1>
+  <p>Create an account with your phone number to buy tickets, keep your booking codes and track your plans.</p>
+  <ul class="perks">
+   <li><div><b>Codes saved to your account</b>Open any ticket you have paid for, any time before it closes.</div></li>
+   <li><div><b>Receipts and payment history</b>Every MTN MoMo and Airtel Money payment is listed with its reference.</div></li>
+   <li><div><b>Plan countdown</b>See exactly when your Daily, Weekly or Monthly access ends.</div></li>
+  </ul>
+  <div class="age"><i>25+</i><span>Ticket Pawa is for adults aged 25 and over. We check your date of birth when you join.</span></div>
+ </div>
+
+ <div class="card" id="card"></div>
+</div></main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="index.html" style="padding:0"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a><p style="color:var(--muted);font-size:14px;max-width:300px">Your daily source of betting selections. Ticket Pawa sells information only. Bets are placed separately with a licensed bookmaker.</p></div>
+   <div><h4>Shop</h4><a href="tickets.html">All tickets</a><a href="subscriptions.html">Plans</a><a href="results.html">Results</a></div>
+   <div><h4>Help</h4><a href="how-it-works.html">How it works</a><a href="responsible-gambling.html">Responsible gambling</a><a href="contact.html">Contact us</a></div>
+   <div><h4>Legal</h4><a href="terms.html">Terms and conditions</a><a href="privacy.html">Privacy policy</a><a href="refund-policy.html">Refund policy</a></div>
+  </div>
+  <div class="warn"><strong>Betting is addictive and can be psychologically harmful.</strong> You must be 25 or older. Never bet money you cannot afford to lose.</div>
+  <div class="copy">© 2026 Ticket Pawa. Sample design. Accounts here are saved only in your own browser for demo purposes.</div>
+ </div>
+</footer>
+
+<nav class="bn" aria-label="Mobile">
+ <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+ <a href="tickets.html"><svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Tickets</a>
+ <a href="subscriptions.html"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Plans</a>
+ <a class="on" href="account.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+</nav>
+
+<script>
+const $=id=>document.getElementById(id);
+const P=new URLSearchParams(location.search);
+let mode=P.get('mode')==='register'?'register':'login';
+let nextUrl=P.get('next')||'account.html';
+if(!/^[a-z-]+\.html(\?[\w=&.%-]*)?$/.test(nextUrl))nextUrl='account.html';
+
+const store={
+ get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},
+ set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+ del(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+const hash=s=>{let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36)}; /* demo only, not real security */
+const normPhone=v=>{const m=v.replace(/[\s-]/g,'').match(/^(?:\+?256|0)?(7\d{8})$/);return m?'+256'+m[1]:null};
+const pretty=p=>p.replace(/^\+256(\d{3})(\d{3})(\d{3})$/,'+256 $1 $2 $3');
+
+function bad(id,msg){const el=$(id);el.classList.add('bad');$(id+'E').textContent=msg}
+function clear(){document.querySelectorAll('.in').forEach(i=>i.classList.remove('bad'));document.querySelectorAll('.err').forEach(e=>e.textContent='')}
+function say(t,type){const m=$('msg');m.className='msg '+(type||'');m.textContent=t||''}
+const field=(id,label,inner,hint)=>`<div><label for="${id}">${label}</label>${inner}<div class="err" id="${id}E" aria-live="polite"></div>${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+const phone=id=>`<div class="ph"><span>+256</span><input class="in" id="${id}" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="7XX XXX XXX"></div>`;
+const pass=(id,ac)=>`<div class="pw"><input class="in" id="${id}" type="password" autocomplete="${ac}" placeholder="At least 8 characters"><button type="button" data-show="${id}">Show</button></div>`;
+
+function draw(){
+ const u=store.get('tp_user',null),c=$('card');
+ if(u){
+  c.innerHTML=`<div class="signed"><h2>You are signed in</h2><p>${u.name}<br>${pretty(u.phone)}</p><div class="stack"><a class="btn gold" href="${nextUrl}">Continue</a><a class="btn ghost" href="tickets.html">Browse tickets</a><button class="btn ghost" id="out">Log out</button></div></div>`;
+  $('out').onclick=()=>{store.del('tp_user');draw()};return;
+ }
+ const reg=mode==='register',max=new Date();max.setFullYear(max.getFullYear()-25);
+ c.innerHTML=`<div class="tabs" role="tablist"><button class="tab${reg?'':' on'}" data-m="login" role="tab">Log in</button><button class="tab${reg?' on':''}" data-m="register" role="tab">Join</button></div>
+ <form id="f" novalidate>
+  ${reg?field('name','Full name','<input class="in" id="name" autocomplete="name" placeholder="As on your ID">'):''}
+  ${field('phone','Mobile number',phone('phone'),reg?'MTN or Airtel number. Used for login and SMS receipts.':'')}
+  ${field('pass','Password',pass('pass',reg?'new-password':'current-password'))}
+  ${reg?field('dob','Date of birth',`<input class="in" id="dob" type="date" max="${max.toISOString().slice(0,10)}" autocomplete="bday">`,'You must be 25 or older.')+`<label class="ck"><input type="checkbox" id="agree"><span>I am 25 or older and I accept the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy policy</a>. I understand betting can be harmful.</span></label><div class="err" id="agreeE"></div>`:`<div style="text-align:right"><button type="button" class="lk" id="forgot">Forgot password?</button></div>`}
+  <div class="msg" id="msg" role="status"></div>
+  <button class="btn gold full" type="submit">${reg?'Create account':'Log in'}</button>
+  <div class="sep">or</div>
+  <button class="btn ghost full" type="button" id="demo">Try the sample account</button>
+ </form>
+ <div class="fine">${reg?'Already have an account? <button class="lk" data-m="login">Log in</button>':'New here? <button class="lk" data-m="register">Join Ticket Pawa</button>'}</div>`;
+ c.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw()});
+ c.querySelectorAll('[data-show]').forEach(b=>b.onclick=()=>{const i=$(b.dataset.show),s=i.type==='password';i.type=s?'text':'password';b.textContent=s?'Hide':'Show'});
+ $('f').onsubmit=submit;
+ $('demo').onclick=()=>{store.set('tp_user',{name:'Sample Customer',phone:'+256772000000'});go('Signed in with the sample account.')};
+ const fg=$('forgot');if(fg)fg.onclick=()=>{const p=normPhone($('phone').value);clear();if(!p){bad('phone','Enter your number first, then tap Forgot password.');return}say('Sample only: a real site would now send a reset code by SMS to '+pretty(p)+'.','ok')};
+}
+function go(text){say(text,'ok');setTimeout(()=>location.href=nextUrl,900)}
+
+function submit(e){
+ e.preventDefault();clear();say('');
+ const reg=mode==='register',p=normPhone($('phone').value),pw=$('pass').value;let ok=true;
+ if(reg&&$('name').value.trim().length<3){bad('name','Enter your full name.');ok=false}
+ if(!p){bad('phone','Enter a valid number, for example 0772 123 456.');ok=false}
+ if(pw.length<8){bad('pass','Use at least 8 characters.');ok=false}
+ if(reg){
+  const d=$('dob').value;
+  if(!d){bad('dob','Enter your date of birth.');ok=false}
+  else{const b=new Date(d),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n<new Date(n.getFullYear(),b.getMonth(),b.getDate()))a--;if(a<25){bad('dob','You must be 25 or older to join Ticket Pawa.');ok=false}}
+  if(!$('agree').checked){$('agreeE').textContent='Please confirm to continue.';ok=false}
+ }
+ if(!ok)return;
+ const acc=store.get('tp_accounts',{});
+ if(reg){
+  if(acc[p]){bad('phone','This number already has an account. Log in instead.');return}
+  acc[p]={name:$('name').value.trim(),h:hash(pw)};store.set('tp_accounts',acc);
+  store.set('tp_user',{name:acc[p].name,phone:p});go('Account created. Taking you on…');
+ }else{
+  if(!acc[p]||acc[p].h!==hash(pw)){say('Number or password is not right. Check both, or tap Join to make an account.','no');return}
+  store.set('tp_user',{name:acc[p].name,phone:p});go('Welcome back. Taking you on…');
+ }
+}
+draw();
+</script>
+</body>
+</html>

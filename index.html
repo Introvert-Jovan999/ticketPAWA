@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ticket Pawa – Your game. Your picks. Your ticket.</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#101B35;--bg2:#1D2B49;--bg3:#27375c;--gold:#F5BD35;--gold2:#ffd36b;--green:#2ECC8F;--amber:#F59E0B;--text:#fff;--muted:#A9B4CC;--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(24px,4vw,34px);font-weight:800}
+.sub{color:var(--muted);margin:8px 0 0;max-width:560px}
+section{padding:44px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.gold{background:var(--gold);color:#1a1405}.gold:hover{background:var(--gold2)}
+.ghost{background:transparent;border:1.5px solid var(--line);color:var(--text)}.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(16,27,53,.96);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(16,27,53,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:800;font-size:14px;transform:rotate(-6deg)}
+.logo b{color:var(--gold)}
+nav.top{display:none;gap:4px}
+nav.top a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px}
+nav.top a:hover,nav.top a.on{color:var(--text);background:var(--bg2)}
+.acts{display:flex;gap:8px}.acts .btn{padding:9px 16px;font-size:14px}
+.acts .ghost{display:none}
+
+/* hero */
+.hero{padding:36px 0 28px;background:radial-gradient(900px 400px at 85% -10%,rgba(245,189,53,.14),transparent 60%)}
+.hgrid{display:grid;gap:34px;align-items:center}
+.hero h1{font-size:clamp(34px,8vw,60px);font-weight:800}
+.hero h1 span{display:block;color:var(--gold)}
+.lead{color:var(--muted);font-size:17px;margin:16px 0 24px;max-width:480px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+.facts div{font-size:13px;color:var(--muted)}
+.facts strong{display:block;font-size:22px;color:var(--text);font-weight:800}
+.age{margin-top:22px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.age i{font-style:normal;border:1.5px solid var(--amber);color:var(--amber);border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+
+/* ticket cards */
+.tk{background:var(--bg2);border-radius:18px;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.28);border:1px solid var(--line)}
+.tk .main{padding:18px 18px 16px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.id{font-weight:700;font-size:14px}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(46,204,143,.15);color:var(--green)}
+.cat{font-size:12px;color:var(--muted);margin-top:2px}
+.odds{font-size:46px;font-weight:800;color:var(--gold);line-height:1;margin:12px 0 2px;letter-spacing:-.03em}
+.lbl{font-size:12px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.meta b{display:block;font-size:15px}
+.stub{border-top:2px dashed rgba(255,255,255,.2);padding:14px 18px 18px;position:relative}
+.stub::before,.stub::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.stub::before{left:-11px}.stub::after{right:-11px}
+.code{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 12px;font-weight:600;letter-spacing:.14em;margin-bottom:12px}
+.code span{filter:blur(5px);user-select:none}
+.code small{margin-left:auto;letter-spacing:0;font-weight:500;color:var(--muted);font-size:12px}
+.buy{display:flex;gap:10px}.buy .btn{flex:1;padding:11px 12px;font-size:14px}
+.exp{color:var(--amber);font-weight:600;font-variant-numeric:tabular-nums}
+.lock{width:16px;height:16px;flex:none;fill:none;stroke:var(--gold);stroke-width:2}
+
+/* categories */
+.cats{display:grid;gap:14px;margin-top:24px}
+.catc{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:20px;display:block;transition:border-color .2s,transform .2s}
+.catc:hover{border-color:var(--gold);transform:translateY(-2px)}
+.catc h3{font-size:19px}
+.catc .rng{font-size:34px;font-weight:800;color:var(--gold);margin:8px 0 6px;letter-spacing:-.02em}
+.catc p{margin:0;color:var(--muted);font-size:14px}
+.catc em{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:12px;opacity:.85}
+
+/* tickets */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 6px;margin-top:18px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:var(--bg2);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:600;font-size:14px;white-space:nowrap;border:1px solid var(--line)}
+.chip.on{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.grid{display:grid;gap:18px;margin-top:18px}
+.more{text-align:center;margin-top:26px}
+
+/* plans */
+.tabs{display:inline-flex;background:var(--bg2);border-radius:14px;padding:5px;margin-top:20px;border:1px solid var(--line)}
+.tab{background:transparent;color:var(--muted);padding:10px 20px;border-radius:10px;font-weight:600}
+.tab.on{background:var(--gold);color:#1a1405}
+.plans{display:grid;gap:14px;margin-top:20px}
+.plan{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px}
+.plan h3{font-size:18px}.plan .rng{color:var(--muted);font-size:13px}
+.price{font-size:32px;font-weight:800;color:var(--gold);margin:12px 0 2px;letter-spacing:-.02em}
+.price small{font-size:14px;color:var(--muted);font-weight:500}
+.save{font-size:12px;color:var(--green);min-height:18px}
+.plan ul{list-style:none;padding:0;margin:14px 0 18px;display:grid;gap:8px;font-size:14px;color:var(--muted)}
+.plan li{display:flex;gap:8px}.plan li::before{content:"✓";color:var(--green);font-weight:700}
+.plan .btn{width:100%}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+
+/* steps */
+.steps{display:grid;gap:14px;margin-top:24px;counter-reset:s}
+.step{display:flex;gap:16px;background:var(--bg2);border-radius:16px;padding:18px;border:1px solid var(--line)}
+.step::before{counter-increment:s;content:counter(s);flex:none;width:38px;height:38px;border-radius:50%;background:var(--gold);color:#1a1405;font-weight:800;display:grid;place-items:center}
+.step h3{font-size:17px;margin-bottom:4px}.step p{margin:0;color:var(--muted);font-size:14px}
+
+/* trust */
+.trust{background:var(--bg2);border-radius:20px;padding:26px;display:grid;gap:16px;border:1px solid var(--line)}
+.trust p{margin:0;color:var(--muted);max-width:620px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:34px 0 20px;background:#0c1630}
+.fgrid{display:grid;gap:24px}
+.fgrid h4{margin:0 0 10px;font-size:14px}
+.fgrid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}.fgrid a:hover{color:var(--gold)}
+.warn{margin-top:26px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+.copy{margin-top:16px;font-size:12px;color:var(--muted)}
+
+/* bottom nav */
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(16,27,53,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bn a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:4px}
+.bn a.on{color:var(--gold)}
+.bn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media(min-width:700px){.cats,.plans{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.fgrid{grid-template-columns:2fr 1fr 1fr 1fr}.trust{grid-template-columns:1fr auto;align-items:center}}
+@media(min-width:980px){
+ body{padding-bottom:0}.bn{display:none}
+ nav.top{display:flex}.acts .ghost{display:inline-flex}
+ .hgrid{grid-template-columns:1.1fr .9fr}.hero{padding:64px 0 44px}
+ .grid{grid-template-columns:repeat(3,1fr)}.steps{grid-template-columns:repeat(4,1fr)}.step{flex-direction:column}
+ section{padding:64px 0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body data-page="home">
+
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="index.html" aria-label="Ticket Pawa home"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a>
+  <nav class="top" aria-label="Main">
+   <a class="on" href="index.html">Home</a>
+   <a href="tickets.html">Tickets</a>
+   <a href="subscriptions.html">Plans</a>
+   <a href="results.html">Results</a>
+   <a href="how-it-works.html">How it works</a>
+  </nav>
+  <div class="acts">
+   <a class="btn ghost" href="login.html">Log in</a>
+   <a class="btn gold" href="login.html?mode=register">Join</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="hero">
+ <div class="wrap hgrid">
+  <div>
+   <h1>Your game.<br>Your picks.<span>Your ticket.</span></h1>
+   <p class="lead">Browse carefully prepared football selections, compare odds packages and unlock your betPawa booking code after you pay with Mobile Money.</p>
+   <div class="ctas">
+    <a class="btn gold" href="tickets.html">Explore tickets</a>
+    <a class="btn ghost" href="subscriptions.html">See plans</a>
+   </div>
+   <div class="facts">
+    <div><strong>24/7</strong>Website access</div>
+    <div><strong>3</strong>Odds categories</div>
+    <div><strong>UGX</strong>Local payments</div>
+   </div>
+   <div class="age"><i>25+</i><span>For adults aged 25 and over. Odds are not a promise of any result.</span></div>
+  </div>
+  <div id="heroTicket" aria-label="Sample ticket"></div>
+ </div>
+</section>
+
+<section id="odds">
+ <div class="wrap">
+  <h2>Pick your odds range</h2>
+  <p class="sub">Every ticket sits in one of three combined-odds groups. Higher odds mean higher risk, not better value.</p>
+  <div class="cats">
+   <a class="catc" href="tickets.html?cat=lower"><h3>Lower odds</h3><div class="rng">1.30 – 2.00</div><p>Smaller combined odds from fewer, closer calls.</p><em>Not safe or guaranteed.</em></a>
+   <a class="catc" href="tickets.html?cat=balanced"><h3>Balanced odds</h3><div class="rng">2.01 – 4.00</div><p>A middle range with a different risk profile.</p><em>Outcomes remain uncertain.</em></a>
+   <a class="catc" href="tickets.html?cat=high"><h3>High odds</h3><div class="rng">4.01+</div><p>Bigger combined odds with greater uncertainty.</p><em>Most tickets in this range lose.</em></a>
+  </div>
+ </div>
+</section>
+
+<section id="tickets" style="padding-top:8px">
+ <div class="wrap">
+  <h2>Today’s tickets</h2>
+  <p class="sub">Sample tickets with made-up teams and prices. Booking codes stay hidden until payment is confirmed.</p>
+  <div class="chips" id="chips" role="tablist" aria-label="Filter by odds"></div>
+  <div class="grid" id="grid"></div>
+  <div class="more"><a class="btn ghost" href="tickets.html">View all tickets</a></div>
+ </div>
+</section>
+
+<section id="plans" style="background:#0c1630">
+ <div class="wrap">
+  <h2>Memberships</h2>
+  <p class="sub">Pay once for a period of access to the slips published in your chosen odds package.</p>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Duration">
+   <button class="tab on" data-d="daily" role="tab">Daily</button>
+   <button class="tab" data-d="weekly" role="tab">Weekly</button>
+   <button class="tab" data-d="monthly" role="tab">Monthly</button>
+  </div>
+  <div class="plans" id="plansGrid"></div>
+  <p class="note">Sample prices. Access lasts <span id="period">24 hours</span> from activation. A plan gives access to published selections and does not guarantee any win or return.</p>
+ </div>
+</section>
+
+<section id="how">
+ <div class="wrap">
+  <h2>How it works</h2>
+  <div class="steps">
+   <div class="step"><div><h3>Choose</h3><p>Pick a single ticket or a Daily, Weekly or Monthly plan.</p></div></div>
+   <div class="step"><div><h3>Sign in</h3><p>Use your phone number. Accounts are for adults aged 25 and over.</p></div></div>
+   <div class="step"><div><h3>Pay</h3><p>Pay with MTN MoMo or Airtel Money. We verify the payment before releasing anything.</p></div></div>
+   <div class="step"><div><h3>Use your code</h3><p>Copy the booking code, open betPawa, check the odds and decide for yourself.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section style="padding-top:0">
+ <div class="wrap">
+  <div class="trust">
+   <div><h2 style="font-size:24px">Wins and losses, all on the record</h2><p style="margin-top:8px">Our Results page lists every settled ticket as won, lost or void, so you can judge for yourself.</p></div>
+   <a class="btn gold" href="results.html">View results</a>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="index.html" style="padding:0"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a><p style="color:var(--muted);font-size:14px;max-width:300px">Your daily source of betting selections. Ticket Pawa is independent and sells information only. Bets are placed separately with a licensed bookmaker.</p></div>
+   <div><h4>Shop</h4><a href="tickets.html">All tickets</a><a href="subscriptions.html">Plans</a><a href="results.html">Results</a></div>
+   <div><h4>Help</h4><a href="how-it-works.html">How it works</a><a href="responsible-gambling.html">Responsible gambling</a><a href="contact.html">Contact us</a></div>
+   <div><h4>Legal</h4><a href="terms.html">Terms and conditions</a><a href="privacy.html">Privacy policy</a><a href="refund-policy.html">Refund policy</a></div>
+  </div>
+  <div class="warn"><strong>Betting is addictive and can be psychologically harmful.</strong> You must be 25 or older. Never bet money you cannot afford to lose.</div>
+  <div class="copy">© 2026 Ticket Pawa. Sample design with fictional tickets, odds and prices.</div>
+ </div>
+</footer>
+
+<nav class="bn" aria-label="Mobile">
+ <a class="on" href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+ <a href="tickets.html"><svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Tickets</a>
+ <a href="subscriptions.html"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Plans</a>
+ <a href="account.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+</nav>
+
+<script>
+const T=[
+ {id:'TP-1001',cat:'lower',odds:1.85,sel:3,price:2000,h:5},
+ {id:'TP-1002',cat:'balanced',odds:3.60,sel:5,price:3000,h:7},
+ {id:'TP-1003',cat:'high',odds:7.40,sel:6,price:5000,h:9},
+ {id:'TP-1004',cat:'lower',odds:1.62,sel:2,price:2000,h:3},
+ {id:'TP-1005',cat:'balanced',odds:2.45,sel:4,price:3000,h:11},
+ {id:'TP-1006',cat:'high',odds:5.20,sel:5,price:5000,h:14}
+];
+const CAT={lower:'Lower odds',balanced:'Balanced odds',high:'High odds'};
+const RNG={lower:'1.30–2.00',balanced:'2.01–4.00',high:'4.01+'};
+const PR={daily:{lower:2000,balanced:3000,high:5000},weekly:{lower:10000,balanced:15000,high:25000},monthly:{lower:30000,balanced:45000,high:75000}};
+const DAYS={daily:1,weekly:7,monthly:30},PER={daily:'24 hours',weekly:'7 days',monthly:'30 days'};
+const end=T.map(t=>Date.now()+t.h*3600e3);
+const fmt=n=>n.toLocaleString('en-UG');
+const lockIc='<svg class="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+function card(t,i){
+ return `<article class="tk"><div class="main">
+  <div class="row"><span class="id">${t.id}</span><span class="badge">Available</span></div>
+  <div class="cat">${CAT[t.cat]} · betPawa football</div>
+  <div class="odds">${t.odds.toFixed(2)}</div><div class="lbl">Combined odds</div>
+  <div class="meta"><div><span class="lbl">Selections</span><b>${t.sel} matches</b></div><div><span class="lbl">Price</span><b>UGX ${fmt(t.price)}</b></div><div><span class="lbl">Expires in</span><b class="exp" data-i="${i}">--:--:--</b></div></div>
+ </div><div class="stub">
+  <div class="code">${lockIc}<span>BP7K2X9</span><small>Hidden until paid</small></div>
+  <div class="buy"><a class="btn gold" href="checkout.html?ticket=${t.id}">Buy ticket</a><a class="btn ghost" href="ticket.html?id=${t.id}">Details</a></div>
+ </div></article>`;
+}
+function tick(){
+ document.querySelectorAll('.exp').forEach(e=>{
+  const s=Math.max(0,Math.floor((end[e.dataset.i]-Date.now())/1000));
+  const p=n=>String(n).padStart(2,'0');
+  e.textContent=`${p(Math.floor(s/3600))}:${p(Math.floor(s%3600/60))}:${p(s%60)}`;
+ });
+}
+let cur='all';
+function renderTickets(){
+ const list=T.map((t,i)=>[t,i]).filter(([t])=>cur==='all'||t.cat===cur);
+ document.getElementById('grid').innerHTML=list.map(([t,i])=>card(t,i)).join('');
+ tick();
+}
+const chips=[['all','All'],['lower','Lower odds'],['balanced','Balanced odds'],['high','High odds']];
+const chipBox=document.getElementById('chips');
+chipBox.innerHTML=chips.map(([k,l])=>`<button class="chip${k==='all'?' on':''}" data-k="${k}" role="tab">${l}</button>`).join('');
+chipBox.addEventListener('click',e=>{
+ const b=e.target.closest('.chip');if(!b)return;
+ cur=b.dataset.k;chipBox.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));renderTickets();
+});
+document.getElementById('heroTicket').innerHTML=card(T[1],1);
+renderTickets();
+setInterval(tick,1000);
+
+let dur='daily';
+function renderPlans(){
+ document.getElementById('plansGrid').innerHTML=['lower','balanced','high'].map(c=>{
+  const p=PR[dur][c],base=PR.daily[c]*DAYS[dur];
+  const s=dur==='daily'?'':`Saves ${Math.round((1-p/base)*100)}% compared with buying daily`;
+  return `<div class="plan"><h3>${CAT[c]}</h3><div class="rng">Combined odds ${RNG[c]}</div>
+  <div class="price">UGX ${fmt(p)} <small>/ ${PER[dur]}</small></div><div class="save">${s}</div>
+  <ul><li>Slips published in this package during your period</li><li>Booking codes appear in your account</li><li>Access ends automatically</li></ul>
+  <a class="btn gold" href="checkout.html?plan=${dur}-${c}">Choose ${dur}</a></div>`;
+ }).join('');
+ document.getElementById('period').textContent=PER[dur];
+}
+document.getElementById('tabs').addEventListener('click',e=>{
+ const b=e.target.closest('.tab');if(!b)return;
+ dur=b.dataset.d;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b));renderPlans();
+});
+renderPlans();
+</script>
+</body>
+</html>

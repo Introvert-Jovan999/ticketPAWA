@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How it works – Ticket Pawa</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#101B35;--bg2:#1D2B49;--gold:#F5BD35;--gold2:#ffd36b;--green:#2ECC8F;--amber:#F59E0B;--red:#ff7b7b;--text:#fff;--muted:#A9B4CC;--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(22px,4vw,30px);font-weight:800}
+.sub{color:var(--muted);margin:8px 0 0;max-width:620px}
+section{padding:36px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;transition:transform .15s,background .15s;text-align:center}
+.btn:active{transform:scale(.97)}
+.gold{background:var(--gold);color:#1a1405}.gold:hover{background:var(--gold2)}
+.ghost{background:transparent;border:1.5px solid var(--line);color:var(--text)}.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(16,27,53,.96);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(16,27,53,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1160px;margin:0 auto;padding:0 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:800;font-size:14px;transform:rotate(-6deg)}
+.logo b{color:var(--gold)}
+nav.top{display:none;gap:4px}
+nav.top a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:15px}
+nav.top a:hover,nav.top a.on{color:var(--text);background:var(--bg2)}
+.acts{display:flex;gap:8px}.acts .btn{padding:9px 16px;font-size:14px}.acts .ghost{display:none}
+
+.head{padding:30px 0 6px;background:radial-gradient(800px 320px at 90% -20%,rgba(245,189,53,.13),transparent 60%)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:10px}.crumb a:hover{color:var(--gold)}
+.head h1{font-size:clamp(32px,6.5vw,52px);font-weight:800}
+.head p{color:var(--muted);max-width:560px;margin:12px 0 0;font-size:17px}
+
+/* timeline */
+.tl{list-style:none;margin:26px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:var(--line)}
+.st{position:relative;padding:0 0 22px 60px}
+.st:last-child{padding-bottom:0}
+.st::before{content:attr(data-n);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:var(--gold);color:#1a1405;font-weight:800;display:grid;place-items:center;box-shadow:0 0 0 6px var(--bg)}
+.st h3{font-size:19px;margin-bottom:4px;padding-top:7px}
+.st p{margin:0;color:var(--muted);font-size:15px;max-width:560px}
+.st a.lk{display:inline-block;margin-top:8px;color:var(--gold);font-weight:600;font-size:14px}.st a.lk:hover{text-decoration:underline}
+
+/* read a ticket */
+.two{display:grid;gap:22px;margin-top:20px;align-items:center}
+.tk{background:var(--bg2);border-radius:18px;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.28);border:1px solid var(--line);max-width:380px}
+.tk .main{padding:18px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.id{font-weight:700;font-size:14px}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(46,204,143,.15);color:var(--green)}
+.odds{font-size:46px;font-weight:800;color:var(--gold);line-height:1;margin:12px 0 2px;letter-spacing:-.03em}
+.lbl{font-size:12px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}.meta b{display:block;font-size:15px}
+.stub{border-top:2px dashed rgba(255,255,255,.2);padding:14px 18px 18px;position:relative}
+.stub::before,.stub::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.stub::before{left:-11px}.stub::after{right:-11px}
+.code{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 12px;font-weight:600;letter-spacing:.14em}
+.code span{filter:blur(5px)}.code small{margin-left:auto;letter-spacing:0;font-weight:500;color:var(--muted);font-size:12px}
+.mk{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#1a1405;font-size:11px;font-weight:800;font-style:normal;margin-left:6px;vertical-align:middle}
+.legend{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.legend li{display:flex;gap:12px;font-size:14px;color:var(--muted)}
+.legend i{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#1a1405;font-size:12px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.legend b{color:var(--text)}
+
+/* cards */
+.cmp{display:grid;gap:14px;margin-top:20px}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:20px}
+.box h3{font-size:18px;margin-bottom:4px}.box>p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.box ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:14px;color:var(--muted)}
+.box li{display:flex;gap:9px}.box li::before{content:"✓";color:var(--green);font-weight:700}
+.box.no li::before{content:"✕";color:var(--red)}
+.box .btn{margin-top:16px;width:100%}
+
+.steps2{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px;counter-reset:c}
+.steps2 li{counter-increment:c;display:flex;gap:14px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--muted)}
+.steps2 li::before{content:counter(c);flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);font-weight:700;display:grid;place-items:center;font-size:13px}
+.steps2 b{color:var(--text)}
+.note{margin-top:16px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+
+details{background:var(--bg2);border:1px solid var(--line);border-radius:14px;margin-top:10px}
+summary{padding:16px 18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0;padding:0 18px 16px;color:var(--muted);font-size:14px}
+details a{color:var(--gold);text-decoration:underline}
+.cta{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.cta p{margin:6px 0 0;color:var(--muted)}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line);padding:34px 0 20px;background:#0c1630;margin-top:30px}
+.fgrid{display:grid;gap:24px}
+.fgrid h4{margin:0 0 10px;font-size:14px}
+.fgrid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}.fgrid a:hover{color:var(--gold)}
+.warn{margin-top:26px;padding:14px 16px;border:1px solid rgba(245,158,11,.5);border-radius:12px;color:#ffd9a0;font-size:13px;background:rgba(245,158,11,.07)}
+.copy{margin-top:16px;font-size:12px;color:var(--muted)}
+
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(16,27,53,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bn a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:4px}
+.bn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media(min-width:700px){.cmp{grid-template-columns:1fr 1fr}.two{grid-template-columns:380px 1fr;gap:40px}.fgrid{grid-template-columns:2fr 1fr 1fr 1fr}.cta{grid-template-columns:1fr auto;align-items:center}}
+@media(min-width:980px){body{padding-bottom:0}.bn{display:none}nav.top{display:flex}.acts .ghost{display:inline-flex}section{padding:48px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="bar">
+  <a class="logo" href="index.html" aria-label="Ticket Pawa home"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a>
+  <nav class="top" aria-label="Main">
+   <a href="index.html">Home</a>
+   <a href="tickets.html">Tickets</a>
+   <a href="subscriptions.html">Plans</a>
+   <a href="results.html">Results</a>
+   <a class="on" href="how-it-works.html">How it works</a>
+  </nav>
+  <div class="acts">
+   <a class="btn ghost" href="login.html">Log in</a>
+   <a class="btn gold" href="login.html?mode=register">Join</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<div class="head"><div class="wrap">
+ <div class="crumb"><a href="index.html">Home</a> / How it works</div>
+ <h1>How Ticket Pawa works</h1>
+ <p>We prepare football betting slips and sell access to them. You pay us for the information. You place any bet yourself, separately, on betPawa.</p>
+</div></div>
+
+<section style="padding-top:20px"><div class="wrap">
+ <h2>From browsing to your code</h2>
+ <ol class="tl">
+  <li class="st" data-n="1"><h3>Choose what you want</h3><p>Buy a single ticket, or take a Daily, Weekly or Monthly plan. Pick one of three odds ranges: Lower, Balanced or High.</p><a class="lk" href="tickets.html">Browse tickets</a></li>
+  <li class="st" data-n="2"><h3>Sign in with your phone number</h3><p>Create an account with your mobile number and a password. Accounts are for adults aged 25 and over, so we check your date of birth.</p><a class="lk" href="login.html?mode=register">Create an account</a></li>
+  <li class="st" data-n="3"><h3>Pay with Mobile Money</h3><p>Pay with MTN MoMo or Airtel Money. You approve the payment on your phone with your own PIN. We never see or ask for your PIN.</p><a class="lk" href="checkout.html?ticket=TP-1002">See the checkout</a></li>
+  <li class="st" data-n="4"><h3>Receive your booking code</h3><p>Once the mobile money provider confirms your payment, the booking code unlocks in your account. A screenshot of a payment is never enough, because we check the real transaction.</p><a class="lk" href="account.html">Go to my account</a></li>
+ </ol>
+</div></section>
+
+<section style="background:#0c1630"><div class="wrap">
+ <h2>How to read a ticket</h2>
+ <p class="sub">Every ticket shows the same information, so you can compare them quickly.</p>
+ <div class="two">
+  <div class="tk" aria-label="Sample ticket">
+   <div class="main"><div class="row"><span class="id">TP-1002</span><span class="badge">Available</span></div>
+    <div class="odds">3.60</div><div class="lbl">Combined odds<i class="mk">A</i></div>
+    <div class="meta"><div><span class="lbl">Selections<i class="mk">B</i></span><b>5 matches</b></div><div><span class="lbl">Price</span><b>UGX 3,000</b></div><div><span class="lbl">Closes in<i class="mk">C</i></span><b style="color:var(--amber)">06:45:10</b></div></div></div>
+   <div class="stub"><div class="code"><span>BP7K2X9</span><small>Hidden until paid</small><i class="mk" style="margin-left:8px">D</i></div></div>
+     </div>
+  <ul class="legend">
+   <li><i>A</i><div><b>Combined odds.</b> All the selections multiplied together. Higher odds mean a lower chance of every pick landing.</div></li>
+   <li><i>B</i><div><b>Selections.</b> The number of matches on the slip. Open Details to see each match, market and its odds.</div></li>
+   <li><i>C</i><div><b>Closes in.</b> After this time the ticket is no longer sold. It is also the time to act before kickoffs begin.</div></li>
+   <li><i>D</i><div><b>Booking code.</b> Hidden until your payment is verified. It is then saved in your account to copy.</div></li>
+  </ul>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Single ticket or plan?</h2>
+ <div class="cmp">
+  <div class="box"><h3>Single ticket</h3><p>Good if you want one slip.</p><ul><li>Pay once for one booking code</li><li>From UGX 2,000</li><li>No commitment</li></ul><a class="btn ghost" href="tickets.html">Browse tickets</a></div>
+  <div class="box"><h3>Plan</h3><p>Good if you want regular access.</p><ul><li>Daily, Weekly or Monthly access</li><li>Slips from your chosen odds range</li><li>Longer plans cost less per day</li><li>Ends on its own, no auto-renewal</li></ul><a class="btn gold" href="subscriptions.html">See plans</a></div>
+ </div>
+</div></section>
+
+<section style="background:#0c1630"><div class="wrap">
+ <h2>What you get, and what you don’t</h2>
+ <div class="cmp">
+  <div class="box"><h3>What we do</h3><p>&nbsp;</p><ul><li>Prepare and publish football slips</li><li>Show odds, matches and the time we last checked them</li><li>Release your booking code after verified payment</li><li>List every settled ticket as won, lost or void</li></ul></div>
+  <div class="box no"><h3>What we never do</h3><p>&nbsp;</p><ul><li>Promise or guarantee a win</li><li>Place bets for you or hold your betting money</li><li>Ask for your Mobile Money PIN</li><li>Belong to betPawa. Ticket Pawa is independent</li></ul></div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Using your code on betPawa</h2>
+ <ol class="steps2">
+  <li><div><b>Copy your code</b> from the ticket in your account.</div></li>
+  <li><div><b>Open betPawa</b> in its own app or website and look for the option to load a booking code.</div></li>
+  <li><div><b>Check everything</b> on the betPawa screen: the matches, the markets and the current odds.</div></li>
+  <li><div><b>Decide for yourself.</b> Odds may have changed since we published. Only bet an amount you can afford to lose.</div></li>
+ </ol>
+ <div class="note"><strong>Betting is addictive and can be psychologically harmful.</strong> Ticket Pawa is for adults aged 25 and over. Read our <a href="responsible-gambling.html" style="text-decoration:underline">responsible gambling</a> advice.</div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <h2>Common questions</h2>
+ <details><summary>Does a ticket guarantee a win?</summary><p>No. A ticket is information only. Any bet can lose, and higher odds carry more risk. Our <a href="results.html">Results page</a> shows wins, losses and voids.</p></details>
+ <details><summary>How soon do I get my code?</summary><p>As soon as your Mobile Money payment is confirmed, usually within a minute. If it does not appear, contact us with your order reference.</p></details>
+ <details><summary>What if the odds change on betPawa?</summary><p>They can. We show the time we last checked the odds. Always look at the current odds on betPawa before you bet.</p></details>
+ <details><summary>What if my payment fails?</summary><p>If the payment is declined or times out, no money is taken and you can try again. If money left your account without a code, <a href="contact.html">contact us</a> with the reference.</p></details>
+ <details><summary>Can I get a refund?</summary><p>See the <a href="refund-policy.html">Refund policy</a> for exactly when refunds apply.</p></details>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <div class="cta"><div><h2 style="font-size:22px">Ready to look around?</h2><p>Browse today’s tickets or pick a plan.</p></div><div class="ctas"><a class="btn gold" href="tickets.html">Browse tickets</a><a class="btn ghost" href="subscriptions.html">See plans</a></div></div>
+</div></section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="index.html" style="padding:0"><span class="mark">TP</span><span>TICKET <b>PAWA</b></span></a><p style="color:var(--muted);font-size:14px;max-width:300px">Your daily source of betting selections. Ticket Pawa sells information only. Bets are placed separately with a licensed bookmaker.</p></div>
+   <div><h4>Shop</h4><a href="tickets.html">All tickets</a><a href="subscriptions.html">Plans</a><a href="results.html">Results</a></div>
+   <div><h4>Help</h4><a href="how-it-works.html">How it works</a><a href="responsible-gambling.html">Responsible gambling</a><a href="contact.html">Contact us</a></div>
+   <div><h4>Legal</h4><a href="terms.html">Terms and conditions</a><a href="privacy.html">Privacy policy</a><a href="refund-policy.html">Refund policy</a></div>
+  </div>
+  <div class="warn"><strong>Betting is addictive and can be psychologically harmful.</strong> You must be 25 or older. Never bet money you cannot afford to lose.</div>
+  <div class="copy">© 2026 Ticket Pawa. Sample design with fictional tickets, odds and prices.</div>
+ </div>
+</footer>
+
+<nav class="bn" aria-label="Mobile">
+ <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+ <a href="tickets.html"><svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Tickets</a>
+ <a href="subscriptions.html"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Plans</a>
+ <a href="account.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+</nav>
+</body>
+</html>
